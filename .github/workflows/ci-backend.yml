@@ -1,0 +1,25 @@
+name: CI Back-end Main
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'sgcmapi/**'
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Maven Compile/Test
+        working-directory: sgcmapi/
+        run: mvn compile test
